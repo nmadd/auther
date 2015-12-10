@@ -24,13 +24,20 @@ router.get('/', function (req, res, next) {
 	.then(null, next);
 });
 
-router.get('/login', function (req, res, next) {
-	User.findOne(req.body.user).exec()
+router.post('/login', function (req, res, next) {
+	console.log(req.body);
+	User.findOne({ email: req.body.email }).exec()
 	.then(function (user) {
-		if(!user){
+		if(!user || user.password !== req.body.password){
+			console.log('Authentication failed')
 			res.status(401).send();
 		}
 		else {
+			console.log('User logged in');
+			req.session.user = {};
+			req.session.user._id = user._id;
+			req.session.user.name = user.name;
+			console.log(req.session);
 			res.status(200).send()
 		}
 	})
@@ -44,6 +51,11 @@ router.post('/', function (req, res, next) {
 	})
 	.then(null, next);
 });
+
+router.get('/logout', function (req, res, next) {
+	req.session.destroy();
+	res.status(201).send();
+})
 
 router.get('/:id', function (req, res, next) {
 	req.requestedUser.getStories()

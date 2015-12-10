@@ -2,12 +2,21 @@
 
 var app = require('express')();
 var path = require('path');
+var session = require('express-session');
 
 app.use(require('./logging.middleware'));
+
+app.use(session({secret: 'huh'}));
+
+app.use(function (req, res, next) {
+  if (req.session.user) console.log(req.session.user.name);
+  next();
+});
 
 app.use(require('./requestState.middleware'));
 
 app.use(require('./statics.middleware'));
+
 
 app.use('/api', require('../api/api.router'));
 

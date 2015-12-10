@@ -1,5 +1,5 @@
-app.controller('SignupController', function($scope){
+app.controller('SignupController', function($scope, AuthFactory){
 	$scope.signup =function(){
-		console.log($scope.user)
+		AuthFactory.signup($scope.user)
 	}
 });

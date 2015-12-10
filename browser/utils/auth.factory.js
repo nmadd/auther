@@ -1,4 +1,4 @@
-app.factory('AuthFactory', function($http){
+app.factory('AuthFactory', function($http, $state){
 	var AuthFactory = {}
 
 	AuthFactory.signup = function(user){
@@ -7,13 +7,21 @@ app.factory('AuthFactory', function($http){
 			url: "/api/users",
 			data: user
 		})
+		.then(function (res) {
+			$state.go('home');
+		})
 	};
 
 	AuthFactory.login = function(user){
 		$http({
-			method: "GET",
+			method: "POST",
 			url: "/api/users/login",
 			data: user
+		})
+		.then(function (res) {
+			if (res.status === 200) {
+				$state.go('home');
+			}
 		})
 	};
 

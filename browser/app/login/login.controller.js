@@ -1,5 +1,5 @@
-app.controller('LoginController', function($scope){
+app.controller('LoginController', function($scope, AuthFactory){
 	$scope.login =function(){
-		console.log($scope.user)
+		AuthFactory.login($scope.user)
 	}
 });
