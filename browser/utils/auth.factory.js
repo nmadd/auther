@@ -34,14 +34,18 @@ app.factory('AuthFactory', function($http, $state){
 	}
 
 	AuthFactory.setCurrentUser = function(){
-		$http({
+		return $http({
 			method: "GET",
 			url: "/api/users/me"
 		})
 		.then(function (res) {
-				currentUser = res.data;
+			currentUser = res.data;
 		})
 	}
 
 	return AuthFactory;
 })
+
+// 266120484855-qj7nc0ffprs19saq1sn7q9irnlnco84t.apps.googleusercontent.com
+
+// client secret: 3bjpe6XzGq3cOWI4arTH-YpF

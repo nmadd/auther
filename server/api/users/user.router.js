@@ -17,6 +17,7 @@ router.param('id', function(req, res, next, id) {
 });
 
 router.get('/', function(req, res, next) {
+	console.log('REQ.USER: ' + req.user)
     User.find({}).exec()
         .then(function(users) {
             res.json(users);

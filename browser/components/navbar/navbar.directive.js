@@ -19,8 +19,10 @@ app.directive('navbar', function ($state, $location, $http,AuthFactory,$rootScop
 					$state.go('home');
 				});
 			};
-			AuthFactory.setCurrentUser();
-			console.log($rootScope.currentUser)
+			AuthFactory.setCurrentUser()
+				.then(function () {
+					console.log(AuthFactory.getCurrentUser())
+				});
 		}
 	}
 });
