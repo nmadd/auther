@@ -1,6 +1,6 @@
 'use strict';
 
-app.directive('navbar', function ($state, $location, $http) {
+app.directive('navbar', function ($state, $location, $http,AuthFactory,$rootScope) {
 	return {
 		restrict: 'E',
 		templateUrl: '/browser/components/navbar/navbar.html',
@@ -19,6 +19,8 @@ app.directive('navbar', function ($state, $location, $http) {
 					$state.go('home');
 				});
 			};
+			AuthFactory.setCurrentUser();
+			console.log($rootScope.currentUser)
 		}
 	}
 });
