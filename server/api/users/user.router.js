@@ -24,6 +24,19 @@ router.get('/', function (req, res, next) {
 	.then(null, next);
 });
 
+router.get('/login', function (req, res, next) {
+	User.findOne(req.body.user).exec()
+	.then(function (user) {
+		if(!user){
+			res.status(401).send();
+		}
+		else {
+			res.status(200).send()
+		}
+	})
+	.then(null, next);
+});
+
 router.post('/', function (req, res, next) {
 	User.create(req.body)
 	.then(function (user) {
